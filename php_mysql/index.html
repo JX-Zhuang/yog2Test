@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<h3>
+		增加
+	</h3>
+	<form action="insert.php" method="get">
+		<p>
+			姓名：<input type="text" name="name">
+		</p>
+		<p>
+			球队：<input type="text" name="team">
+		</p>
+		<p>
+			号码：<input type="text" name="number">
+		</p>
+		<p>
+			年龄：<input type="text" name="age">
+		</p>
+		<input type="submit" value="增加">
+	</form>
+	<h3>
+		全部内容
+	</h3>
+	<div id="showSelectAll">
+		<table>
+			<tr>
+				<th>age</th>
+				<th>name</th>
+				<th>number</th>
+				<th>team</th>
+				<th>操作</th>
+			</tr>
+		</table>
+	</div>
+	<h3>
+		删除
+	</h3>
+	<form action="delete.php" method="get">
+		<p>
+			姓名：<input type="text" name="name">
+		</p>
+		<p>
+			球队：<input type="text" name="team">
+		</p>
+		<p>
+			号码：<input type="text" name="number">
+		</p>
+		<p>
+			年龄：<input type="text" name="age">
+		</p>
+		<input type="submit" value="删除">
+	</form>
+	<h3>
+		查找
+	</h3>
+	<form action="select.php" method="post">
+		<p>
+			请输入球员姓名：<input type="text" name="name">
+		</p>
+		<input type="submit" value="查找">
+	</form>
+	<script>
+		(function() {
+			var showSelectAll = function(trLen,tdLen){
+				var table = document.querySelector("#showSelectAll table");
+				var tr = document.createElement('tr');
+				table.appendChild(tr);
+			};
+			var xmlHttp = (function(){
+				var xmlhttp;
+				if(window.XMLHttpRequest){
+					xmlhttp = new XMLHttpRequest();
+				}else{
+					xmlhttp = new ActiveXObject('Microsoft.XMLHTTP');
+				}
+				return xmlhttp;
+			})();
+			xmlHttp.open('GET','selectAll.php',true);
+			xmlHttp.send();
+			xmlHttp.onreadystatechange=function(){
+				if(xmlHttp.readyState == 4 && xmlHttp.status == 200){
+					var data = JSON.parse(xmlHttp.responseText).data;
+					var table = document.querySelector("#showSelectAll table tbody");
+					var trLen = data.length;
+					for(var i = 0;i<trLen;i++){
+						var createTr = document.createElement('tr');
+						var tr = table.appendChild(createTr);
+						for(var k in data[i]){
+							var createTd = document.createElement('td');
+							tr.appendChild(createTd).innerText = data[i][k];
+						}
+						var createTd = document.createElement('td');
+						tr.appendChild(createTd).innerHTML = '<button>'+'删除'+'</button>';
+					}
+				}
+			};
+			
+		})();
+	</script>
+</body>
+</html>

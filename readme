@@ -1,0 +1,21 @@
+1.php_mysql
+	php操作数据库文件，简单的增删改查，写的不全
+
+2.testServer
+	node链接php，把数据传到前端
+
+3.web
+	前端文件，渲染页面
+4.cd testServer && npm install
+
+5.启动php项目
+
+6.运行
+	根目录下
+	cd testServer && yog2 run
+
+注：
+	1.数据库文件没有导入
+	2.css没有写，页面比较low
+	3.很多地方没有校验，基本流程可以跑通
+	4.要导入数据库文件
